@@ -1,0 +1,736 @@
+{
+	"info": {
+		"_postman_id": "e45e9fd7-f6c4-438a-a084-8444fbddb4af",
+		"name": "Rules",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51f7b148-5005-43ef-9581-9c4e22e4f8c7",
+						"type": "text/javascript",
+						"exec": [
+							"var template = JSON.parse(responseBody);",
+							"pm.environment.set(\"bearer_token\", template.access_token);",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic c2VsZWN0NGNpdGllczp3LUB5N0ZDKX55IzlLdWouYkBfTHRyM24mYW1G"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "e5f18d87-58a6-4a57-8c08-1ac265e0d53d"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "cpcalderon@emergya.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "frufru",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://us1.fiwoo.eu:4000/api/user-management/login",
+					"protocol": "http",
+					"host": [
+						"us1",
+						"fiwoo",
+						"eu"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"user-management",
+						"login"
+					]
+				},
+				"description": "Generated from a curl request: \ncurl -X POST \\\n  http://us1.fiwoo.eu:4000/api/user-management/login \\\n  -H 'Authorization: Basic c2VsZWN0NGNpdGllczp3LUB5N0ZDKX55IzlLdWouYkBfTHRyM24mYW1G' \\\n  -H 'Cache-Control: no-cache' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  -H 'Postman-Token: e5f18d87-58a6-4a57-8c08-1ac265e0d53d' \\\n  -d 'grant_type=password&username=cpcalderon@emergya.com&password=frufru'"
+			},
+			"response": []
+		},
+		{
+			"name": "add basic rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4c6a62f-e577-4e3b-9e10-b6225c06d101",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subscription\");",
+							"    pm.expect(pm.response.text()).to.include(\"perseo\");",
+							"    pm.expect(pm.response.text()).to.include(\"database\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "X-Authorization-s4c",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzNGMubWljcm9zZXJ2aWNlcy5hdXRob3JpemF0aW9uIiwiaWF0IjoxNTIxNDYzODU3LCJzdWIiOiJ7XCJpZFwiOjMsXCJuYW1lXCI6XCJTZWxlY3Q0Q2l0aWVzXCIsXCJzdXJuYW1lXCI6XCJ0ZXN0aW5nXCIsXCJlbWFpbFwiOlwic2VsZWN0NGNpdGllc0BlbWFpbC5jb21cIixcImRhdGVfb2ZfYmlydGhcIjpcIjE5ODAtMDEtMDNcIixcInBhc3N3b3JkXCI6bnVsbCxcImdlbmRlclwiOlwiRmVtYWxlXCIsXCJ1dWlkX3Rva2VuX3Jlc2V0XCI6bnVsbCxcImFzc2V0c1wiOltdLFwicm9sZXNcIjpbe1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9XSxcImVuYWJsZWRcIjp0cnVlLFwiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiY3JlZGVudGlhbHNOb25FeHBpcmVkXCI6dHJ1ZSxcImFjY291bnROb25Mb2NrZWRcIjp0cnVlLFwiYXV0aG9yaXRpZXNcIjpbXSxcInVzZXJuYW1lXCI6XCJzZWxlY3Q0Y2l0aWVzQGVtYWlsLmNvbVwifSJ9.PPNRi0FTx9Nd9YPykP5YukKj69m5cid4rpp0qbFJ-hE0BIh8rfVDob9n2O6NkiAtCbJlA96NitMvsaa9IaTyeQ",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"basicruletest2\",\r\n  \"text\": {\r\n    \"sensorId\": \"bloodm1\",\r\n    \"sensorType\": \"BloodMeter\",\r\n    \"attributes\": [{\r\n        \"name\": \"BloodPressure\",\r\n        \"type\": \"float\",\r\n        \"value\": \"3\",\r\n        \"operator\": \">=\"\r\n      }\r\n    ]\r\n  },\r\n    \"action\":\r\n   [ {\r\n        \"name\":\"update\",\r\n        \"updatedSensor\":\r\n         {\r\n            \"id\":\"bloodm1\",\r\n            \"type\":\"BloodMeter\",\r\n            \"attributes\":[\r\n            {\r\n                \"name\":\"wer\",\r\n                \"type\":\"float\",\r\n                \"value\":\"666\"\r\n            }\r\n            \r\n            ]\r\n         \r\n         }\r\n        \r\n        \r\n    }],\r\n\"description\":\"my rule\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/basic/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"basic",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get basic rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e666f08-f15e-4c40-b7bd-6d0e67835766",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"basicruletest2\");",
+							"    pm.expect(pm.response.text()).to.include(\"BloodPressure\");",
+							"    pm.expect(pm.response.text()).to.include(\"BloodMeter\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"basicruletest2\",\r\n  \"text\": {\r\n    \"sensorId\": \"bloodm1\",\r\n    \"sensorType\": \"BloodMeter\",\r\n    \"attributes\": [{\r\n        \"name\": \"BloodPressure\",\r\n        \"type\": \"float\",\r\n        \"value\": \"3\",\r\n        \"operator\": \">=\"\r\n      }\r\n    ]\r\n  },\r\n    \"action\":\r\n   [ {\r\n        \"name\":\"update\",\r\n        \"updatedSensor\":\r\n         {\r\n            \"id\":\"bloodm1\",\r\n            \"type\":\"BloodMeter\",\r\n            \"attributes\":[\r\n            {\r\n                \"name\":\"wer\",\r\n                \"type\":\"float\",\r\n                \"value\":\"666\"\r\n            }\r\n            \r\n            ]\r\n         \r\n         }\r\n        \r\n        \r\n    }],\r\n\"description\":\"my rule\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/basic/get?rule_name=basicruletest2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"basic",
+						"get"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "basicruletest2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify basic rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4c6a62f-e577-4e3b-9e10-b6225c06d101",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subscription\");",
+							"    pm.expect(pm.response.text()).to.include(\"perseo\");",
+							"    pm.expect(pm.response.text()).to.include(\"database\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"newRule\": {\n        \"name\": \"{{modifiedBasic}}\",\n        \"text\": {\n            \"sensorId\": \"bloodm1\",\n            \"sensorType\": \"BloodMeter\",\n            \"attributes\": [{\n                \"name\": \"BloodPressure\",\n                \"type\": \"float\",\n                \"value\": \"3\",\n                \"operator\": \">=\"\n            }]\n        },\n        \"action\": [{\n            \"name\": \"update\",\n            \"updatedSensor\": {\n                \"id\": \"bloodm1\",\n                \"type\": \"BloodMeter\",\n                \"attributes\": [{\n                        \"name\": \"wer\",\n                        \"type\": \"float\",\n                        \"value\": \"666\"\n                    }\n\n                ]\n\n            }\n\n\n        }],\n        \"description\": \"my rule updated\"\n\n    }\n\n\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/basic/modify?old_rule_name=basicruletest2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"basic",
+						"modify"
+					],
+					"query": [
+						{
+							"key": "old_rule_name",
+							"value": "basicruletest2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check basic rule modification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8637d0bd-e178-4801-bdce-1e33b5409f22",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"modifiedBasic\"));",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"basicruletest2\",\r\n  \"text\": {\r\n    \"sensorId\": \"bloodm1\",\r\n    \"sensorType\": \"BloodMeter\",\r\n    \"attributes\": [{\r\n        \"name\": \"BloodPressure\",\r\n        \"type\": \"float\",\r\n        \"value\": \"3\",\r\n        \"operator\": \">=\"\r\n      }\r\n    ]\r\n  },\r\n    \"action\":\r\n   [ {\r\n        \"name\":\"update\",\r\n        \"updatedSensor\":\r\n         {\r\n            \"id\":\"bloodm1\",\r\n            \"type\":\"BloodMeter\",\r\n            \"attributes\":[\r\n            {\r\n                \"name\":\"wer\",\r\n                \"type\":\"float\",\r\n                \"value\":\"666\"\r\n            }\r\n            \r\n            ]\r\n         \r\n         }\r\n        \r\n        \r\n    }],\r\n\"description\":\"my rule\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/basic/get?rule_name={{modifiedBasic}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"basic",
+						"get"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "{{modifiedBasic}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add advanced rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef889055-9726-494b-88c2-4f8bdba7dc88",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subscription\");",
+							"    pm.expect(pm.response.text()).to.include(\"perseo\");",
+							"    pm.expect(pm.response.text()).to.include(\"database\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"rule\" : {\n\"name\": \"rule_test2\",\n\"text\": \"select *,\\\"rule_test2\\\" as ruleName from pattern [every\nev=iotEvent(cast(cast(temperature?,String),float)<=21 and type=\\\"bvbbb\\\" and\ncast(id?,String)=\\\"aaaaaa\\\")]\",\n\"action\": {\n\"type\": \"update\",\n\"parameters\": {\n\"id\" : \"aaaa\",\n\"type\" : \"temperature_entity\",\n\"attributes\": [\n{\n\"name\": \"isHigh\",\n\"value\": \"false\",\n\"type\": \"boolean\"\n}]\n}\n}\n},\n\"user_id\" : \"select4cities\",\n\"description\" : \"Sets isHigh to false if temperature is lower than 21\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/advanced/add",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"advanced",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get advanced rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a0aab07a-db8d-42f0-98c9-3be4b330d6d9",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"name\");",
+							"    pm.expect(pm.response.text()).to.include(\"text\");",
+							"    pm.expect(pm.response.text()).to.include(\"action\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"rule\" : {\n\"name\": \"rule_test2\",\n\"text\": \"select *,\\\"rule_temperature_update_lower\\\" as ruleName from pattern [every\nev=iotEvent(cast(cast(temperature?,String),float)<=21 and type=\\\"bvbbb\\\" and\ncast(id?,String)=\\\"aaaaaa\\\")]\",\n\"action\": {\n\"type\": \"update\",\n\"parameters\": {\n\"id\" : \"aaaa\",\n\"type\" : \"temperature_entity\",\n\"attributes\": [\n{\n\"name\": \"isHigh\",\n\"value\": \"false\",\n\"type\": \"boolean\"\n}]\n}\n}\n},\n\"user_id\" : \"select4cities\",\n\"description\" : \"Sets isHigh to false if temperature is lower than 21\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/advanced/get?rule_name=rule_test2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"advanced",
+						"get"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "rule_test2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify advanced rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef889055-9726-494b-88c2-4f8bdba7dc88",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"subscription\");",
+							"    pm.expect(pm.response.text()).to.include(\"perseo\");",
+							"    pm.expect(pm.response.text()).to.include(\"database\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\"newRule\": {\n\n\t\t\"name\": \"{{modifiedAdvanced}}\",\n\t\t\"text\": \"select*, \\\"rule_test2\\\" as ruleName  from pattern [every ev=iotEvent(cast(cast(BloodPressure?, String),float)>=3 and type=\\\"BloodMeter\\\" and cast(id?, String)=\\\"bloodm1\\\")]\",\n\t\t\"action\": [{\n\t\t\t\"type\": \"twitter\",\n\t\t\t\"template\": \"aaaaaaaaaaaaaaeeeeeeeeeeiiiiiiiii\",\n\t\t\t\"parameters\": {\n\t\t\t\t\"consumer_key\": null,\n\t\t\t\t\"consumer_secret\": null,\n\t\t\t\t\"acces_token_key\": null,\n\t\t\t\t\"acces_token_secret\": null\n\t\t\t}\n\t\t}]\n\t},\n\t\"description\": \"no description\"\n}\n"
+				},
+				"url": {
+					"raw": "{{url}}/statements/advanced/modify?old_rule_name=rule_test2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"advanced",
+						"modify"
+					],
+					"query": [
+						{
+							"key": "old_rule_name",
+							"value": "rule_test2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check advanced rule modification",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6a0c1a96-7837-44a1-ba61-b081cce4f5dd",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body contains expected values\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"rule_test2modified\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"rule\" : {\n\"name\": \"rule_test2\",\n\"text\": \"select *,\\\"rule_temperature_update_lower\\\" as ruleName from pattern [every\nev=iotEvent(cast(cast(temperature?,String),float)<=21 and type=\\\"bvbbb\\\" and\ncast(id?,String)=\\\"aaaaaa\\\")]\",\n\"action\": {\n\"type\": \"update\",\n\"parameters\": {\n\"id\" : \"aaaa\",\n\"type\" : \"temperature_entity\",\n\"attributes\": [\n{\n\"name\": \"isHigh\",\n\"value\": \"false\",\n\"type\": \"boolean\"\n}]\n}\n}\n},\n\"user_id\" : \"select4cities\",\n\"description\" : \"Sets isHigh to false if temperature is lower than 21\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/statements/advanced/get?rule_name={{modifiedAdvanced}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements",
+						"advanced",
+						"get"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "{{modifiedAdvanced}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get rules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68b50000-6d54-4d77-abb2-c39611ce0c11",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Rules created successfully\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"basicruletest2\");",
+							"    pm.expect(pm.response.text()).to.include(\"rule_test2\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/statements?order=asc&sort=RULE_ID&page=0&limit=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "asc"
+						},
+						{
+							"key": "sort",
+							"value": "RULE_ID"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete basic rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9921f8ee-863e-4c9f-91d4-ce5e1e65be07",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					},
+					{
+						"key": "X-Authorization-s4c",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJzNGMubWljcm9zZXJ2aWNlcy5hdXRob3JpemF0aW9uIiwiaWF0IjoxNTIxNDYzODU3LCJzdWIiOiJ7XCJpZFwiOjMsXCJuYW1lXCI6XCJTZWxlY3Q0Q2l0aWVzXCIsXCJzdXJuYW1lXCI6XCJ0ZXN0aW5nXCIsXCJlbWFpbFwiOlwic2VsZWN0NGNpdGllc0BlbWFpbC5jb21cIixcImRhdGVfb2ZfYmlydGhcIjpcIjE5ODAtMDEtMDNcIixcInBhc3N3b3JkXCI6bnVsbCxcImdlbmRlclwiOlwiRmVtYWxlXCIsXCJ1dWlkX3Rva2VuX3Jlc2V0XCI6bnVsbCxcImFzc2V0c1wiOltdLFwicm9sZXNcIjpbe1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9LHtcImlkXCI6MSxcIm5hbWVcIjpudWxsLFwiZGVzY3JpcHRpb25cIjpudWxsLFwicmVzb3VyY2VzXCI6bnVsbH0se1wiaWRcIjoxLFwibmFtZVwiOm51bGwsXCJkZXNjcmlwdGlvblwiOm51bGwsXCJyZXNvdXJjZXNcIjpudWxsfSx7XCJpZFwiOjEsXCJuYW1lXCI6bnVsbCxcImRlc2NyaXB0aW9uXCI6bnVsbCxcInJlc291cmNlc1wiOm51bGx9XSxcImVuYWJsZWRcIjp0cnVlLFwiYWNjb3VudE5vbkV4cGlyZWRcIjp0cnVlLFwiY3JlZGVudGlhbHNOb25FeHBpcmVkXCI6dHJ1ZSxcImFjY291bnROb25Mb2NrZWRcIjp0cnVlLFwiYXV0aG9yaXRpZXNcIjpbXSxcInVzZXJuYW1lXCI6XCJzZWxlY3Q0Y2l0aWVzQGVtYWlsLmNvbVwifSJ9.PPNRi0FTx9Nd9YPykP5YukKj69m5cid4rpp0qbFJ-hE0BIh8rfVDob9n2O6NkiAtCbJlA96NitMvsaa9IaTyeQ",
+						"disabled": true
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/statements?rule_name={{modifiedBasic}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "{{modifiedBasic}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete advanced rule",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b021cdf6-b2ba-4fa8-94c5-957fd4737ba6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/statements?rule_name={{modifiedAdvanced}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"statements"
+					],
+					"query": [
+						{
+							"key": "rule_name",
+							"value": "{{modifiedAdvanced}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

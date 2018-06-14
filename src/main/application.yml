@@ -1,0 +1,5 @@
+
+# HTTP Server
+server:
+  port: 5000   # HTTP (Tomcat) port
+
